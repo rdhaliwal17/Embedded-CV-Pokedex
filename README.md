@@ -1,6 +1,4 @@
-======================================================================
 EMBEDDED AI POKÉDEX (COMPUTER VISION & HARDWARE INTERFACE)
-======================================================================
 
 An end-to-end physical Pokédex system combining an edge-accelerated computer 
 vision, real-time UART serial telemetry, and an Arduino-driven 16x2 LCD 
