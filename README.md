@@ -1,4 +1,5 @@
 EMBEDDED AI POKÉDEX (COMPUTER VISION & HARDWARE INTERFACE)
+----------------------------------------------------------------------
 
 An end-to-end physical Pokédex system combining an edge-accelerated computer 
 vision, real-time UART serial telemetry, and an Arduino-driven 16x2 LCD 
@@ -88,18 +89,6 @@ TECH STACK & TOOLS
 - Computer Vision: Ultralytics YOLO (CUDA-accelerated), OpenCV
 - Networking: Requests (PokéAPI integration)
 - Communications: PySerial, Struct (binary pack/unpack)
-
-
-PROJECT STRUCTURE
-----------------------------------------------------------------------
-├── firmware/
-│   └── pokedex.ino        # Microcontroller FSM, button debounce, LCD driver
-├── server/
-│   ├── main.py            # OpenCV loop, YOLO inference, API cache, serial bridge
-│   └── requirements.txt   # Python dependencies
-├── models/
-│   └── best.pt            # Custom-trained YOLO detection weights
-└── README.txt             # Project documentation
 
 
 HARDWARE PINOUT AND WIRING REFERENCE
