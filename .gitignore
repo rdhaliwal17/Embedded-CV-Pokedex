@@ -1,0 +1,11 @@
+*.pt
+__pycache__/
+pokemon_dataset/
+runs/
+*.cache
+.vscode/
+*.jpg
+*.png
+*.txt
+*.yaml
+!README.txt
