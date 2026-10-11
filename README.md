@@ -46,28 +46,6 @@ Component: Arduino Uno / ATmega328P
   * VSS/RW -> GND, VDD -> 5V, V0 -> Contrast Potentiometer
 
 
-SERIAL PROTOCOL SPECIFICATION
-----------------------------------------------------------------------
-UART Configuration: 115,200 Baud, 8-N-1
-
-1. Hardware -> Host:
-   - ASCII character 'S' sent when Pin 2 is triggered.
-
-2. Host -> Hardware Binary Frame:
-   [0xAA] [DEX] [BST/4] [NAME (10B)] [LEN] [PAYLOAD (N bytes)] [CRC] [0x55]
-
-   Field       Type        Description
-   -------------------------------------------------------------------
-   0xAA        uint8       Frame start delimiter
-   DEX         uint8       National Pokédex Number (1–255)
-   BST/4       uint8       Base Stat Total scaled by 1/4 (fits in 8 bits)
-   NAME        char[10]    Left-aligned, space-padded ASCII name
-   LEN         uint8       Text payload byte count (max 160 bytes)
-   PAYLOAD     char[LEN]   Sanitized, line-padded flavour text (32B/page)
-   CRC         uint8       XOR Checksum: (DEX ^ (BST/4) ^ LEN) & 0xFF
-   0x55        uint8       Frame end delimiter
-
-
 TECH STACK & TOOLS
 ----------------------------------------------------------------------
 - Embedded Hardware: Arduino Uno (ATmega328P), 16x2 LCD (HD44780-compatible)
@@ -76,54 +54,6 @@ TECH STACK & TOOLS
 - Computer Vision: Ultralytics YOLO (CUDA-accelerated), OpenCV
 - Networking: Requests (PokéAPI integration)
 - Communications: PySerial, Struct (binary pack/unpack)
-
-
-HARDWARE PINOUT AND WIRING REFERENCE
-----------------------------------------------------------------------
-1. ARDUINO UNO PIN ASSIGNMENTS
-----------------------------------------------------------------------
-Arduino Pin   Direction   Connected Component       Function / Notes
-----------------------------------------------------------------------
-Pin 2 (D2)    INPUT       Scan Button (Tactile)     Active-LOW (INPUT_PULLUP)
-Pin 3 (D3)    INPUT       Page Button (Tactile)     Active-LOW (INPUT_PULLUP)
-Pin 7 (D7)    OUTPUT      16x2 LCD - Pin 4 (RS)     Register Select
-Pin 8 (D8)    OUTPUT      16x2 LCD - Pin 6 (EN)     Enable Clock
-Pin 9 (D9)    OUTPUT      16x2 LCD - Pin 11 (D4)    Data Bit 4
-Pin 10 (D10)  OUTPUT      16x2 LCD - Pin 12 (D5)    Data Bit 5
-Pin 11 (D11)  OUTPUT      16x2 LCD - Pin 13 (D6)    Data Bit 6
-Pin 12 (D12)  OUTPUT      16x2 LCD - Pin 14 (D7)    Data Bit 7
-5V            POWER       Breadboard Power Rail     Supplies VDD, A, & Pot
-GND           GROUND      Breadboard Ground Rail    Common Ground Reference
-
-
-2. 16x2 LCD (HD44780) PINOUT CONNECTION TABLE
-----------------------------------------------------------------------
-LCD Pin  Label  Function               Wiring Connection
-----------------------------------------------------------------------
-Pin 1    VSS    Ground                 Breadboard GND
-Pin 2    VDD    Logic Power (+5V)      Breadboard +5V
-Pin 3    V0     Contrast Voltage       Center Wiper of 10k Potentiometer
-Pin 4    RS     Register Select        Arduino Pin 7
-Pin 5    RW     Read / Write Select    Breadboard GND (Write Mode Only)
-Pin 6    E      Enable Clock Pulse     Arduino Pin 8
-Pin 7    D0     Data Bit 0 (Unused)    No Connection (NC)
-Pin 8    D1     Data Bit 1 (Unused)    No Connection (NC)
-Pin 9    D2     Data Bit 2 (Unused)    No Connection (NC)
-Pin 10   D3     Data Bit 3 (Unused)    No Connection (NC)
-Pin 11   D4     Data Bit 4             Arduino Pin 9
-Pin 12   D5     Data Bit 5             Arduino Pin 10
-Pin 13   D6     Data Bit 6             Arduino Pin 11
-Pin 14   D7     Data Bit 7             Arduino Pin 12
-Pin 15   A      Backlight Anode (+)    +5V (via 220 Ohm current-limiting resistor)
-Pin 16   K      Backlight Cathode (-)  Breadboard GND
-
-
-3. BUTTON WIRING (ACTIVE-LOW)
-----------------------------------------------------------------------
-Both tactile buttons utilize internal microcontroller pull-up resistors:
-- Scan Button: Terminal A -> Arduino Pin 2  |  Terminal B -> GND
-- Page Button: Terminal A -> Arduino Pin 3  |  Terminal B -> GND
-*(Pressing either button shorts the input pin directly to ground)*
 
 
 SETUP & EXECUTION
