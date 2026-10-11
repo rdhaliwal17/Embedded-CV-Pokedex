@@ -28,19 +28,6 @@ The system operates across two interconnected subsystems:
    - Renders primary stats and multi-page flavour text across a 16x2 LCD.
 
 
-SYSTEM ARCHITECTURE
-----------------------------------------------------------------------
-[ Physical Buttons ] ──> [ Arduino Uno (ATmega328P) ]
- (Scan / Page)             │                      ▲
-                           │ UART (115200 baud)   │ Custom Binary Packets
-                           ▼                      │ (Header, Meta, Text, CRC)
-                         [ Python Host Pipeline ] ┘
-                           │                 │
-                           ▼                 ▼
-                  [ YOLO Vision (CUDA) ]   [ PokéAPI REST ]
-                  [ Live Camera Feed   ]   [ In-Memory Cache ]
-
-
 HARDWARE WIRING & PINOUT
 ----------------------------------------------------------------------
 Component: Arduino Uno / ATmega328P
