@@ -191,7 +191,7 @@ void loop() {
         break;
 
       case WAIT_CHECKSUM:
-        // Checksum placeholder byte (add XOR/CRC validation here if needed)
+        // Checksum placeholder byte
         currentState = WAIT_FOOTER;
         break;
 
